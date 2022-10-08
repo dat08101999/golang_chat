@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const URI string = "mongodb+srv://dat:dat081099@cluster0.a2zwrmu.mongodb.net/?retryWrites=true&w=majority"
+const URI string = "mongodb+srv://dat081099:dat081099@cluster0.ojgpmif.mongodb.net/?retryWrites=true&w=majority"
 
 func getClient() (*mongo.Client, error) {
 	return mongo.NewClient(options.Client().ApplyURI(URI))
@@ -35,5 +35,5 @@ func query(function FunctionQuery) {
 }
 
 func getColecttion(client *mongo.Client, collecttionName string) *mongo.Collection {
-	return client.Database("Todo_List").Collection(collecttionName)
+	return client.Database("CHAT_GO").Collection(collecttionName)
 }
