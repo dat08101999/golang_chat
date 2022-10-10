@@ -12,6 +12,12 @@ import (
 )
 
 func UserSendMessage(c *fiber.Ctx) error {
+
+	c.Response().Header.Set("Access-Control-Allow-Origin", "*")
+
+	c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
+
+	c.Response().Header.Set("Access-Control-Allow-Headers", "GET,POST, OPTIONS")
 	var messegeModel services.MessageModel
 	err := c.BodyParser(&messegeModel)
 
@@ -93,6 +99,11 @@ func GetALLRoomChat(c *fiber.Ctx) error {
 
 func GetAllMessageOfRoom(c *fiber.Ctx) error {
 	hexId, err := primitive.ObjectIDFromHex(c.Params("id"))
+	c.Response().Header.Set("Access-Control-Allow-Origin", "*")
+
+	c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
+
+	c.Response().Header.Set("Access-Control-Allow-Headers", "GET,POST, OPTIONS")
 	page, _ := strconv.Atoi(c.Params("page"))
 	perpage, _ := strconv.Atoi(c.Params("perpage"))
 	list, err := dbquery.GetMessageOfRoom(hexId, page, perpage)
