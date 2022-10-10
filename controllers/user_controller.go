@@ -20,14 +20,15 @@ func UserSendMessage(c *fiber.Ctx) error {
 			"err": err.Error(),
 		})
 	}
-	dbquery.SaveMessage(models.ChatMessage{
+	chatM := models.ChatMessage{
 		Id:             primitive.NewObjectID(),
 		From:           c.Params("id"),
 		ConversationId: messegeModel.ConversationId,
 		Content:        messegeModel.Message,
 		CreateAt:       primitive.NewDateTimeFromTime(time.Now()),
-	})
-	services.SendMessge(messegeModel)
+	}
+	dbquery.SaveMessage(chatM)
+	services.SendMessge(messegeModel, chatM)
 	return c.JSON(map[string]interface{}{
 		"Message": "SendSuccess",
 	})
