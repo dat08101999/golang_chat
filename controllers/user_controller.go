@@ -75,6 +75,11 @@ func UserConnectSocket(name string, active bool) error {
 }
 
 func GetALLRoomChat(c *fiber.Ctx) error {
+	c.Response().Header.Set("Access-Control-Allow-Origin", "*")
+
+	c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
+
+	c.Response().Header.Set("Access-Control-Allow-Headers", "GET,POST, OPTIONS")
 	list, err := dbquery.GetAllRoomChat(c.Params("id"))
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(map[string]interface{}{
