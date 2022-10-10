@@ -4,6 +4,7 @@ import (
 	"golang_chat/controllers"
 	"golang_chat/services"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
@@ -71,6 +72,6 @@ func main() {
 		}
 
 	}))
-	log.Fatal(app.Listen(":" + "3000"))
-	// log.Fatal(app.Listen(":" + os.Getenv("PORT")))
+	// log.Fatal(app.Listen(":" + "3000"))
+	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
