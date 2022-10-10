@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/gofiber/websocket/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"golang.org/x/exp/slices"
 )
 
 type SocketUserModel struct {
@@ -31,15 +32,17 @@ func RemoveSocket(sc *websocket.Conn) {
 		}
 	}
 }
-func findSocket(userID string, callback func(sc *websocket.Conn)) {
+func findSocket(userID []string, callback func(sc *websocket.Conn)) {
 	for _, d := range SocketUserList {
-		if d.UserId == userID {
+		if slices.Contains(userID, d.UserId) {
 			callback(d.Socket)
 		}
 	}
 }
 func SendMessge(messegeModel MessageModel) {
-	findSocket(messegeModel.To, func(sc *websocket.Conn) {
+	var list []string
+	list = append(list, messegeModel.To, messegeModel.From)
+	findSocket(list, func(sc *websocket.Conn) {
 		sc.WriteJSON(messegeModel)
 	})
 }
