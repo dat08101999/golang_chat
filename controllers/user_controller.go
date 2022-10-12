@@ -14,7 +14,7 @@ import (
 func UserSendMessage(c *fiber.Ctx) error {
 
 	c.Response().Header.Set("Access-Control-Allow-Origin", "*")
-
+	c.Response().Header.Set("Accept", "application/json")
 	c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
 
 	c.Response().Header.Set("Access-Control-Allow-Headers", "GET,POST, OPTIONS")
