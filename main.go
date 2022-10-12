@@ -21,7 +21,7 @@ func main() {
 		}
 		return fiber.ErrUpgradeRequired
 	})
-	app.Get("/sendMessage/:id", controllers.UserSendMessage)
+	app.Post("/sendMessage/:id", controllers.UserSendMessage)
 	app.Get("/user/getActive", controllers.GetListUserActive)
 	app.Get("/user/getNotActive", controllers.GetListUserNotActive)
 

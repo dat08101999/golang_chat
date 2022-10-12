@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"golang_chat/dbquery"
 	"golang_chat/models"
 	"golang_chat/services"
@@ -32,10 +33,11 @@ func UserSendMessage(c *fiber.Ctx) error {
 		Content:        messegeModel.Message,
 		CreateAt:       primitive.NewDateTimeFromTime(time.Now()),
 	}
-	go func() {
-		dbquery.SaveMessage(chatM)
-		services.SendMessge(messegeModel, chatM)
-	}()
+	fmt.Println(chatM)
+	// go func() {
+	dbquery.SaveMessage(chatM)
+	services.SendMessge(messegeModel, chatM)
+	// }()
 	return c.JSON(map[string]interface{}{
 		"Message": "SendSuccess",
 	})
