@@ -16,7 +16,6 @@ func UserSendMessage(c *fiber.Ctx) error {
 	c.Response().Header.Set("Access-Control-Allow-Origin", "*")
 	c.Response().Header.Set("Accept", "application/json")
 	c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
-
 	c.Response().Header.Set("Access-Control-Allow-Headers", "GET,POST, OPTIONS")
 	var messegeModel services.MessageModel
 	err := c.BodyParser(&messegeModel)
@@ -33,8 +32,10 @@ func UserSendMessage(c *fiber.Ctx) error {
 		Content:        messegeModel.Message,
 		CreateAt:       primitive.NewDateTimeFromTime(time.Now()),
 	}
-	dbquery.SaveMessage(chatM)
-	services.SendMessge(messegeModel, chatM)
+	go func() {
+		dbquery.SaveMessage(chatM)
+		services.SendMessge(messegeModel, chatM)
+	}()
 	return c.JSON(map[string]interface{}{
 		"Message": "SendSuccess",
 	})
